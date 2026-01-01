@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quinteros Crime Family</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        argBlue: '#75AADB', // Arjantin Mavisi
+                        argWhite: '#FFFFFF',
+                        argGold: '#F4B333',
+                        darkPanel: 'rgba(10, 10, 10, 0.90)',
+                    },
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a; /* Fallback */
+        }
+
+        /* --- HARAKETLİ ARJANTİN BAYRAĞI ARKA PLANI --- */
+        .flag-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -5;
+            /* Ana Bayrak Rengi (Mavi-Beyaz-Mavi) */
+            background: linear-gradient(180deg, 
+                #75AADB 0%, #75AADB 33%, 
+                #FFFFFF 33%, #FFFFFF 66%, 
+                #75AADB 66%, #75AADB 100%);
+        }
+
+        /* Dalgalanma Efekti Layer 1 (Işık ve Gölge) */
+        .wave-overlay-1 {
+            position: fixed;
+            top: 0; left: 0; width: 300%; height: 100%;
+            z-index: -4;
+            /* Beyaz ışıltı ve hafif gölge çizgileri */
+            background: repeating-linear-gradient(
+                110deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.15) 10%,
+                transparent 20%,
+                rgba(0, 0, 0, 0.15) 30%,
+                transparent 40%
+            );
+            background-size: 100% 100%; 
+            animation: flagWave 15s linear infinite; /* Yavaş ve sürekli dalgalanma */
+            opacity: 0.8;
+        }
+
+        /* Dalgalanma Efekti Layer 2 (Ters Hareket - Derinlik) */
+        .wave-overlay-2 { 
+            position: fixed;
+            top: 0; left: 0; width: 300%; height: 100%;
+            z-index: -3;
+            /* Daha yumuşak gölgelendirme */
+            background: repeating-linear-gradient(
+                -70deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 15%,
+                transparent 25%
+            );
+            background-size: 100% 100%;
+            animation: flagWaveReverse 18s linear infinite; /* Ters yönde hareket */
+            opacity: 0.6;
+        }
+
+        /* Dalgalanma Anahtar Kareleri */
+        @keyframes flagWave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-66.66%); } 
+        }
+
+        @keyframes flagWaveReverse {
+            0% { transform: translateX(-66.66%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* İçerik Panelleri */
+        .glass-dark {
+            background-color: #0a0a0a; 
+            border: 1px solid rgba(117, 170, 219, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* Sayfa Geçişleri */
+        .view-section {
+            display: none; 
+            animation: fadeIn 0.5s ease-out;
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Arka Plan: Dalgalanan Arjantin Bayrağı -->
+    <div class="flag-container">
+        <!-- Ortadaki Güneş (Sabit Arka Planda) -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20">
+            <i class="fas fa-sun text-[300px] text-argGold animate-spin-slow"></i>
+        </div>
+    </div>
+    <div class="wave-overlay-1"></div>
+    <div class="wave-overlay-2"></div>
+
+    <!-- Üst Bar (Navbar) -->
+    <nav class="fixed top-0 w-full z-50 bg-black border-b border-argBlue px-6 py-4 flex justify-between items-center shadow-lg">
+        <!-- Sol Üst Yazı (Ana Ekrana Dönüş Linki) -->
+        <button onclick="showView('home')" class="text-xl md:text-2xl font-heading font-black tracking-widest text-white flex items-center gap-2 hover:text-argBlue transition-colors">
+            <i class="fas fa-sun text-argGold"></i>
+            QUINTEROS CRIME FAMILY
+        </button>
+
+        <!-- Sağ Üst Hamburger Menü -->
+        <button onclick="toggleMenu()" id="menu-toggle-btn" class="text-white hover:text-argBlue transition-colors z-50">
+            <i class="fas fa-bars text-3xl"></i>
+        </button>
+    </nav>
+
+    <!-- Menü (Ayarlar) -->
+    <div id="settings-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8">
+        <h2 class="text-argBlue font-heading text-4xl mb-4 border-b border-gray-700 pb-2">MENÜ</h2>
+        
+        <!-- Ana Ekran Butonu - En Üstte ve Belirgin -->
+        <button onclick="showView('home')" class="text-3xl font-bold text-argGold hover:text-white transition-colors">ANA EKRAN</button>
+
+        <button onclick="showView('gallery')" class="text-2xl font-bold hover:text-argBlue transition-colors">Çeteden Kareler</button>
+        <button onclick="showView('roster')" class="text-2xl font-bold hover:text-argBlue transition-colors">Aile Bireyleri</button>
+        <button onclick="showView('rules')" class="text-2xl font-bold hover:text-argBlue transition-colors">Birlik Kuralları</button>
+        <button onclick="showView('character')" class="text-2xl font-bold hover:text-argBlue transition-colors">Karakter Tanıtımı</button>
+        
+        <a href="https://discord.gg/GNYhS8NRvC" target="_blank" class="mt-8 px-8 py-3 bg-argBlue text-black font-black uppercase tracking-widest rounded hover:bg-white transition-colors">
+            BAŞVURU YAP
+        </a>
+    </div>
+
+    <!-- ================= ANA EKRAN (HOME) ================= -->
+    <div id="home-view" class="view-section active container mx-auto px-4 pb-20">
+        
+        <div class="max-w-4xl mx-auto space-y-12">
+            
+            <!-- 1. YouTube Videosu -->
+            <div class="glass-dark p-2 rounded-xl relative group">
+                <div class="absolute -top-3 left-4 bg-argBlue text-black font-bold px-4 py-1 text-sm uppercase tracking-widest rounded-t">
+                    Aile Tanıtımı
+                </div>
+                <div class="w-full aspect-video bg-black rounded-lg overflow-hidden flex items-center justify-center relative">
+                    <!-- Youtube Embed Buraya -->
+                    <!-- Şimdilik Placeholder -->
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=2008&auto=format&fit=crop')] bg-cover bg-center opacity-50"></div>
+                    <div class="relative z-10 text-center">
+                        <i class="fab fa-youtube text-7xl text-red-600 drop-shadow-2xl cursor-pointer hover:scale-110 transition-transform"></i>
+                        <p class="mt-2 text-sm text-gray-300">Video Yakında</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Aile Bireyleri İsim Yeri (Özet Liste) -->
+            <div class="glass-dark p-6 rounded-xl border-l-4 border-argGold">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-heading font-bold text-white">AİLE BİREYLERİ</h2>
+                    <button onclick="showView('roster')" class="text-argBlue text-sm hover:underline flex items-center">Tümünü Gör <i class="fas fa-arrow-right ml-1 text-xs"></i></button>
+                </div>
+                
+                <!-- İsim Listesi -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-center gap-3 p-3 bg-white/5 rounded">
+                        <i class="fas fa-crown text-argGold"></i>
+                        <span class="font-bold text-lg">Flavio Quinteros</span>
+                        <span class="text-xs text-gray-400 ml-auto border border-argGold/50 px-2 py-0.5 rounded">BOSS</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-white/5 rounded">
+                        <i class="fas fa-star text-argBlue"></i>
+                        <span class="font-bold text-lg">Killy Quinteros</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-white/5 rounded">
+                        <i class="fas fa-star text-argBlue"></i>
+                        <span class="font-bold text-lg">Jarvis Quinteros</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-white/5 rounded">
+                        <i class="fas fa-user text-gray-400"></i>
+                        <span class="font-bold text-lg">David Quinteros</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Çeteden Kareler (Büyük Buton) -->
+            <button onclick="showView('gallery')" class="w-full group relative h-48 rounded-xl overflow-hidden border-2 border-white hover:border-argBlue transition-all shadow-xl">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1570753634041-332308726888?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"></div>
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <i class="fas fa-camera text-4xl text-argBlue mb-2"></i>
+                    <h2 class="text-4xl font-heading font-black text-white tracking-wider uppercase drop-shadow-lg">Çeteden Kareler</h2>
+                    <p class="text-gray-300 text-sm mt-2 font-bold tracking-widest bg-black/50 px-4 py-1 rounded">GALERİYE GİT</p>
+                </div>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- ================= DİĞER SAYFALAR ================= -->
+
+    <!-- Aile Bireyleri Tam Liste -->
+    <div id="roster-view" class="view-section container mx-auto px-4 pb-20">
+        <div class="flex justify-between items-center mb-8">
+            <button onclick="showView('home')" class="text-sm text-gray-400 hover:text-white transition-colors flex items-center bg-black/50 px-3 py-1 rounded">
+                <i class="fas fa-arrow-left mr-2"></i> Ana Ekrana Dön
+            </button>
+            <h2 class="text-3xl font-heading font-black bg-black/80 px-4 py-1 rounded">AİLE KADROSU</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Üye Kartları -->
+            <div class="glass-dark p-4 rounded text-center">
+                <img src="https://images.unsplash.com/photo-1563240619-44ec0045480c?q=80&w=1974&auto=format&fit=crop" onerror="this.src='https://placehold.co/100x100/111111/FFFFFF?text=F'" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-argGold">
+                <h3 class="text-xl font-bold">Flavio Quinteros</h3>
+                <p class="text-argGold text-sm">Lider (R20)</p>
+            </div>
+            <div class="glass-dark p-4 rounded text-center">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" onerror="this.src='https://placehold.co/100x100/111111/FFFFFF?text=K'" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-argBlue">
+                <h3 class="text-xl font-bold">Killy Quinteros</h3>
+                <p class="text-gray-400 text-sm">Yüksek Konsey</p>
+            </div>
+             <div class="glass-dark p-4 rounded text-center">
+                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=2048&auto=format&fit=crop" onerror="this.src='https://placehold.co/100x100/111111/FFFFFF?text=J'" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-argBlue">
+                <h3 class="text-xl font-bold">Jarvis Quinteros</h3>
+                <p class="text-gray-400 text-sm">Yüksek Konsey</p>
+            </div>
+             <div class="glass-dark p-4 rounded text-center">
+                <div class="w-24 h-24 rounded-full mx-auto mb-4 bg-zinc-800 flex items-center justify-center border-2 border-gray-600"><i class="fas fa-user text-3xl"></i></div>
+                <h3 class="text-xl font-bold">Gustavo Quinteros</h3>
+            </div>
+             <div class="glass-dark p-4 rounded text-center">
+                <div class="w-24 h-24 rounded-full mx-auto mb-4 bg-zinc-800 flex items-center justify-center border-2 border-gray-600"><i class="fas fa-user text-3xl"></i></div>
+                <h3 class="text-xl font-bold">David Quinteros</h3>
+            </div>
+             <div class="glass-dark p-4 rounded text-center">
+                <div class="w-24 h-24 rounded-full mx-auto mb-4 bg-zinc-800 flex items-center justify-center border-2 border-gray-600"><i class="fas fa-user text-3xl"></i></div>
+                <h3 class="text-xl font-bold">Naara Quinteros</h3>
+            </div>
+             <div class="glass-dark p-4 rounded text-center">
+                <div class="w-24 h-24 rounded-full mx-auto mb-4 bg-zinc-800 flex items-center justify-center border-2 border-gray-600"><i class="fas fa-user text-3xl"></i></div>
+                <h3 class="text-xl font-bold">Maximen Quinteros</h3>
+            </div>
+             <div class="glass-dark p-4 rounded text-center">
+                <div class="w-24 h-24 rounded-full mx-auto mb-4 bg-zinc-800 flex items-center justify-center border-2 border-gray-600"><i class="fas fa-user text-3xl"></i></div>
+                <h3 class="text-xl font-bold">Argon Quinteros</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galeri -->
+    <div id="gallery-view" class="view-section container mx-auto px-4 pb-20">
+         <div class="flex justify-between items-center mb-8">
+            <button onclick="showView('home')" class="text-sm text-gray-400 hover:text-white transition-colors flex items-center bg-black/50 px-3 py-1 rounded">
+                <i class="fas fa-arrow-left mr-2"></i> Ana Ekrana Dön
+            </button>
+            <h2 class="text-3xl font-heading font-black bg-black/80 px-4 py-1 rounded">ÇETEDEN KARELER</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-dark p-2 rounded">
+                <img src="https://images.unsplash.com/photo-1514339304323-834952675662?q=80&w=2070&auto=format&fit=crop" onerror="this.src='https://placehold.co/400x256/111111/75AADB?text=KARE+1'" class="w-full h-64 object-cover rounded">
+                <p class="text-center mt-2 font-bold text-argBlue">La Casa - Karargah</p>
+            </div>
+            <div class="glass-dark p-2 rounded">
+                <img src="https://images.unsplash.com/photo-1605218427306-022ba8c9197a?q=80&w=2070&auto=format&fit=crop" onerror="this.src='https://placehold.co/400x256/111111/75AADB?text=KARE+2'" class="w-full h-64 object-cover rounded">
+                <p class="text-center mt-2 font-bold text-argBlue">İlk Operasyon</p>
+            </div>
+            <div class="glass-dark p-2 rounded">
+                <img src="https://images.unsplash.com/photo-1563240619-44ec0045480c?q=80&w=1974&auto=format&fit=crop" onerror="this.src='https://placehold.co/400x256/111111/75AADB?text=KARE+3'" class="w-full h-64 object-cover rounded">
+                <p class="text-center mt-2 font-bold text-argBlue">Flavio Quinteros</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kurallar -->
+    <div id="rules-view" class="view-section container mx-auto px-4 pb-20">
+         <div class="flex justify-between items-center mb-8">
+            <button onclick="showView('home')" class="text-sm text-gray-400 hover:text-white transition-colors flex items-center bg-black/50 px-3 py-1 rounded">
+                <i class="fas fa-arrow-left mr-2"></i> Ana Ekrana Dön
+            </button>
+            <h2 class="text-3xl font-heading font-black bg-black/80 px-4 py-1 rounded text-argGold">BİRLİK KURALLARI</h2>
+        </div>
+
+        <div class="glass-dark p-8 rounded-xl max-w-4xl mx-auto space-y-6 text-gray-200">
+            <h3 class="text-xl font-bold text-argBlue border-b border-gray-700 pb-2">1. Genel Disiplin</h3>
+            <p>Birlik içerisinde ast–üst ilişkisi vardır. Lider ve yetkililerin verdiği emirler rol içinde sorgulanmaz, uygulanır.</p>
+            <h3 class="text-xl font-bold text-white border-b border-gray-700 pb-2">2. Polis ve Devlet Birimleri</h3>
+            <p>Polislere sebepsiz ateş açmak yasaktır. Aile bilgilerini sorguda vermek kesinlikle yasaktır.</p>
+            <h3 class="text-xl font-bold text-argBlue border-b border-gray-700 pb-2">3. Araç ve Mal Varlığı</h3>
+            <p>Birlik araçlarının bağlanmasına sebep olan üye, bağlı kaldığı gün kadar ödeme yapar. İzinsiz eşya almak yasaktır.</p>
+             <h3 class="text-xl font-bold text-white border-b border-gray-700 pb-2">4. Aktiflik ve Çıkış</h3>
+            <p>7 gün aktif olmayan üyeler birlikten çıkarılır. 24 saat sonrası ayrılmak isteyen üyelerden 50.000$ kan parası alınır.</p>
+        </div>
+    </div>
+    
+     <!-- Karakter Tanıtımı -->
+    <div id="character-view" class="view-section container mx-auto px-4 pb-20">
+         <div class="flex justify-between items-center mb-8">
+            <button onclick="showView('home')" class="text-sm text-gray-400 hover:text-white transition-colors flex items-center bg-black/50 px-3 py-1 rounded">
+                <i class="fas fa-arrow-left mr-2"></i> Ana Ekrana Dön
+            </button>
+            <h2 class="text-3xl font-heading font-black bg-black/80 px-4 py-1 rounded">KARAKTER TANITIMI</h2>
+        </div>
+        <div class="glass-dark p-8 rounded-xl max-w-4xl mx-auto text-center">
+            <i class="fas fa-folder-open text-6xl text-argBlue mb-4"></i>
+            <p class="text-xl">Karakter dosyaları, rol derinliğini artırmak amacıyla burada hazırlanacaktır.</p>
+        </div>
+    </div>
+
+    <script>
+        // Menü Aç/Kapa
+        function toggleMenu() {
+            const menu = document.getElementById('settings-menu');
+            const btn = document.getElementById('menu-toggle-btn').querySelector('i');
+            
+            if (menu.classList.contains('translate-x-full')) {
+                // Aç
+                menu.classList.remove('translate-x-full');
+                btn.classList.remove('fa-bars');
+                btn.classList.add('fa-times');
+            } else {
+                // Kapat
+                menu.classList.add('translate-x-full');
+                btn.classList.remove('fa-times');
+                btn.classList.add('fa-bars');
+            }
+        }
+
+        // Sayfa Değiştirme Sistemi
+        function showView(viewName) {
+            // Tüm sayfaları gizle
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // İstenen sayfayı göster
+            document.getElementById(viewName + '-view').classList.add('active');
+
+            // Menü açıksa kapat
+            const menu = document.getElementById('settings-menu');
+            if (!menu.classList.contains('translate-x-full')) {
+                toggleMenu();
+            }
+        }
+    </script>
+
+</body>
+</html>
