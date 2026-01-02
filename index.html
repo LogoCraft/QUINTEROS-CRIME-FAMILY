@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,12 +25,12 @@
                         argWhite: '#FFFFFF',
                         argSun: '#F4B333',
                         argDark: '#0F172A',
-                        storyBlue: '#1e3a8a', // Hikaye metni için özel koyu mavi
+                        storyBlue: '#1e3a8a',
                     },
                     fontFamily: {
                         'sans': ['Inter', 'sans-serif'],
                         'title': ['Cinzel', 'serif'],
-                        'story': ['Playfair Display', 'serif'], // Hikayeler için daha estetik font
+                        'story': ['Playfair Display', 'serif'],
                     }
                 }
             }
@@ -38,7 +38,7 @@
     </script>
 
     <style>
-        /* Waving Flag Background Animation */
+        /* Arka Plan Bayrak Animasyonu */
         .flag-bg {
             position: fixed;
             top: 0;
@@ -116,17 +116,10 @@
             transform: scale(1.05);
         }
         
-        /* Placeholder Photo Styling */
-        .photo-placeholder {
-            background-color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+        /* Akıllı Profil Fotoğrafı Odaklaması */
+        .smart-crop {
+            object-fit: cover;
+            object-position: top center; /* Fotoğrafı her zaman kafadan/yukarıdan hizalar */
         }
     </style>
 </head>
@@ -166,10 +159,10 @@
                     <i class="fas fa-home w-5 text-argBlue"></i> Ana Sayfa
                 </button>
                 <button onclick="openCharacterPage(); toggleMenu()" class="flex items-center gap-3 p-3 w-full text-left rounded-lg hover:bg-blue-50 text-slate-700 font-medium transition-colors">
-                    <i class="fas fa-users w-5 text-argBlue"></i> Karakter Tanıtımı
+                    <i class="fas fa-users w-5 text-argBlue"></i> Organizasyon Üyeleri
                 </button>
                 <button onclick="openModal('rules-modal'); toggleMenu()" class="flex items-center gap-3 p-3 w-full text-left rounded-lg hover:bg-blue-50 text-slate-700 font-medium transition-colors">
-                    <i class="fas fa-book w-5 text-argBlue"></i> Birlik Kuralları
+                    <i class="fas fa-book w-5 text-argBlue"></i> Birlik Protokolü
                 </button>
                 <div class="pt-4 mt-4 border-t border-slate-100">
                     <a href="https://discord.gg/GNYhS8NRvC" target="_blank" class="flex items-center justify-center gap-2 p-3 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg font-bold text-sm shadow-lg transition-all">
@@ -204,7 +197,7 @@
                             Kuralları Oku
                         </button>
                          <button onclick="openCharacterPage()" class="px-6 py-2 border-2 border-argBlue text-argBlue rounded-full font-bold text-sm hover:bg-argBlue hover:text-white transition-all">
-                            Organizasyon Üyeleri
+                            Aileyi Tanı
                         </button>
                     </div>
                 </div>
@@ -213,16 +206,31 @@
 
         <!-- AİLE HİKAYESİ Section -->
         <section id="family-story" class="mb-12 animate-fade" style="animation-delay: 0.1s;">
-            <div class="glass-card rounded-3xl p-8 border-l-4 border-argSun">
-                <div class="flex items-center gap-3 mb-4">
+            <div class="glass-card rounded-3xl p-8 md:p-12 border-l-4 border-argSun">
+                <div class="flex items-center gap-3 mb-8">
                     <i class="fas fa-scroll text-2xl text-argSun"></i>
-                    <h3 class="font-title font-bold text-2xl text-slate-900 tracking-wide uppercase">Organizasyon Tarihçesi</h3>
+                    <h3 class="font-title font-bold text-2xl text-slate-900 tracking-wide uppercase">Aile Senaryosu</h3>
                 </div>
-                <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100 text-center">
-                    <p class="text-slate-500 italic font-story text-lg">
-                        Quinteros Ailesi'nin Arjantin'in tozlu sokaklarından Grandoria'nın görkemli malikanelerine uzanan mafya imparatorluğunun hikayesi burada hayat bulacak...
-                    </p>
-                    <i class="fas fa-pen-nib text-argBlue mt-3 text-xl opacity-50 animate-pulse"></i>
+                <div class="prose prose-lg prose-slate mx-auto text-justify font-story text-slate-700 leading-8">
+                    <p class="mb-4"><strong class="text-slate-900">Quinteros Crime Family</strong>, Arjantin yeraltı dünyasında ani bir patlamayla değil, yıllara yayılan sabırlı bir yükselişle var oldu. Aile hiçbir zaman sokaklara hükmeden kaba bir çete anlayışını benimsemedi. Onlar için güç; bağırmakta, korku salmakta ya da gereksiz kan dökmekte değil, doğru zamanda görünmez olmakta saklıydı. Quinteros soyadı, Buenos Aires çevresinde zamanla <em>“sorunsuz çözen”</em>, <em>“sözünü tutan”</em> ve <em>“fazla konuşmayan”</em> bir yapı olarak tanındı.</p>
+                    
+                    <p class="mb-4">Ailenin temel felsefesi nettir: <strong class="text-storyBlue">İllegal güç, yalnızca legal zemin üzerinde ayakta kalır.</strong> Bu yüzden Quinteroslar, ilk günden itibaren iş dünyasına, ticarete, bağlantılara ve sosyal çevreye yatırım yaptı. Resmî kayıtlarda görünen işletmeler, şirketler ve yatırımlar; perde arkasında aileye hareket alanı sağladı. İlişkiler kaba tehditlerle değil, karşılıklı çıkar ve bağımlılık üzerinden kuruldu.</p>
+
+                    <p class="mb-4">Zamanla aile büyüdükçe, devletin ve kolluk kuvvetlerinin dikkatini çekmemek imkânsız hâle geldi. Uzun süreli takipler, sızdırılan muhbirler ve planlanan operasyonlar, Quinteros Crime Family’nin de sonunun yaklaştığı algısını yarattı. Ancak Quinteroslar hiçbir zaman son ana kadar bekleyen bir yapı olmadı. Ailenin çekirdek kadrosu, baskından çok önce belirlenmişti. Kimlerin kalacağı, kimlerin gideceği, neyin feda edileceği çoktan hesaplanmıştı.</p>
+
+                    <p class="mb-4">Arjantin’deki büyük polis baskını gecesi, dışarıdan bakıldığında bir çöküş gibi görünse de; aslında bu, bilinçli bir kopuştu. Malikâneye giren polisler, ailenin vitriniyle karşılaştı. Asıl beyin kadro, en güçlü ve en nitelikli isimler, çoktan yeni bir düzen için hazırlanmıştı. O düzenin adı: <strong class="text-slate-900">Grandoria</strong>’ydı.</p>
+
+                    <p class="mb-4">Grandoria’ya gelen Quinteros Crime Family, geçmiş hatalardan ders alarak hareket etti. Burada amaç, hızlı büyümek ya da sokak hâkimiyeti kurmak değildi. Aile; legal işletmeler, ticari ortaklıklar, elit çevreler, mekanlar ve sosyal bağlar üzerinden şehrin içine sessizce yerleşti. Illegal faaliyetler, hiçbir zaman ön planda tutulmadı; yalnızca gerektiğinde, kontrollü ve iz bırakmadan devreye sokuldu.</p>
+
+                    <p class="mb-4">Aile yapısı bu dönemde daha da netleşti. Her bireyin bir rolü, bir uzmanlığı ve bir sınırı vardı. Kimisi çevre kurdu, kimisi mekanları yönetti, kimisi güvenliği sağladı, kimisi de arka planda kalmayı tercih etti. Quinteros Crime Family’de kaos yoktur; hiyerarşi ve görev bilinci vardır. Herkes neyi temsil ettiğini bilir ve haddini aşmaz.</p>
+
+                    <p class="mb-8">Quinteroslar için sadakat, zorla alınan bir yemin değildir. Sadakat; birlikte yükselmekten, birlikte risk almaktan ve gerektiğinde susabilmekten gelir. İhanet ise yüksek sesle cezalandırılmaz. Aile, intikamını aceleyle değil; zamanla ve kusursuz şekilde alır. Bu yüzden Quinteros ismi Grandoria’da korkuyla değil, temkinle anılır.</p>
+
+                    <div class="border-l-4 border-argBlue pl-6 py-2 italic text-storyBlue">
+                        <p>Bugün Quinteros Crime Family; ne bir söylenti, ne bir sokak çetesi, ne de geçici bir güçtür.</p>
+                        <p>Onlar Grandoria’da yerleşmiş, kök salmış ve bekleyen bir yapıdır.</p>
+                        <p class="font-bold mt-2">Quinteroslar acele etmez. Quinteroslar hata yapmaz. Ve Quinteroslar, yapılan hiçbir şeyi unutmaz.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -236,20 +244,21 @@
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <!-- Kare 1 -->
-                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1597116844907-744040e9447c?q=80&w=2787&auto=format&fit=crop" class="w-full h-full object-cover" alt="Mafia 1">
+                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer group">
+                         <!-- Buraya toplu fotoğraf linki koyulabilir -->
+                        <img src="https://i.postimg.cc/W3p4hVww/image.png"  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Mafia 1">
                     </div>
                     <!-- Kare 2 -->
-                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1605218427306-022ba78816c7?q=80&w=2940&auto=format&fit=crop" class="w-full h-full object-cover" alt="Mafia 2">
+                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer group">
+                        <img src="https://i.postimg.cc/3RrwdhF0/image2.png"  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Mafia 2">
                     </div>
                     <!-- Kare 3 -->
-                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2783&auto=format&fit=crop" class="w-full h-full object-cover" alt="Mafia 3">
+                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer group">
+                        <img src="https://i.postimg.cc/B6ZvX3B5/image1.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Mafia 3">
                     </div>
                     <!-- Kare 4 -->
-                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?q=80&w=2576&auto=format&fit=crop" class="w-full h-full object-cover" alt="Mafia 4">
+                    <div class="aspect-square rounded-xl overflow-hidden shadow-sm border border-white bg-white gallery-img cursor-pointer group">
+                        <img src="https://i.postimg.cc/LX4snS3J/image3.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Mafia 4">
                     </div>
                 </div>
             </div>
@@ -284,93 +293,19 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <h2 class="text-3xl font-title font-black text-slate-900">ORGANİZASYON ÜYELERİ</h2>
-                    <p class="text-slate-500 text-sm">Hiyerarşiyi ve hikayeleri incelemek için isimlere tıklayın.</p>
+                    <p class="text-slate-500 text-sm">Detaylı dosya ve hikaye için personele tıklayın.</p>
                 </div>
                 <button onclick="closeCharacterPage()" class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-500 font-bold text-sm shadow-sm transition-colors">
                     Kapat <i class="fas fa-times ml-1"></i>
                 </button>
             </div>
 
-            <!-- Boss Highlight -->
-            <div class="flex justify-center mb-10">
-                <div onclick="openModal('flavio')" class="bg-white p-6 rounded-2xl border-b-4 border-argSun w-full max-w-sm cursor-pointer text-center shadow-lg hover:shadow-xl transition-all group">
-                    <div class="w-24 h-24 mx-auto bg-slate-50 rounded-full mb-4 flex items-center justify-center border-2 border-argSun text-slate-800 shadow-sm group-hover:scale-105 transition-transform overflow-hidden photo-placeholder text-xl">
-                        PHOTO 1
-                    </div>
-                    <h3 class="font-title font-bold text-2xl text-slate-900 mb-1">FLAVIO QUINTEROS</h3>
-                    <div class="inline-block px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-full tracking-widest uppercase">
-                        Líder Absoluto (R20)
-                    </div>
-                </div>
+            <!-- JAVASCRIPT ILE DOLDURULACAK GRID ALANI -->
+            <!-- Burayı boş bırakıyorum, sayfa açıldığında renderCharacters() fonksiyonu burayı dolduracak -->
+            <div id="characters-grid-container" class="space-y-10">
+                <!-- JS will inject content here -->
             </div>
-
-            <!-- Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                
-                <div onclick="openModal('jarvis')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                        PHOTO 2
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">JARVIS</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">Líder Adjunto</span>
-                </div>
-
-                <div onclick="openModal('naara')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                        PHOTO 3
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">NAARA</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">Sessiz Güç</span>
-                </div>
-
-                <div onclick="openModal('killy')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                        PHOTO 4
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">KILLY</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">Operasyon</span>
-                </div>
-
-                <div onclick="openModal('gustavo')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                        PHOTO 5
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">GUSTAVO</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">İtibar</span>
-                </div>
-
-                <div onclick="openModal('argon')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                         PHOTO 6
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">ARGON</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">Lojistik</span>
-                </div>
-
-                <div onclick="openModal('brayne')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                        PHOTO 7
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">BRAYNE</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">İstihbarat</span>
-                </div>
-
-                <div onclick="openModal('maximen')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                     <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                        PHOTO 8
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">MAXIMEN</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">Bağlantı</span>
-                </div>
-
-                <div onclick="openModal('david')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
-                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100 photo-placeholder text-sm">
-                        PHOTO 9
-                    </div>
-                    <h4 class="font-bold text-slate-800 uppercase">DAVID</h4>
-                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">İnfaz</span>
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -392,59 +327,80 @@
     </div>
 
     <script>
+        // --- RESIM LINKLERI BURAYA ---
+        // Aşağıdaki linkleri kendi fotoğraflarınla değiştir.
+        // Tek bir link koyman yeterli, hem kapak hem profil fotoğrafı otomatik ayarlanır.
         const memberData = {
             flavio: {
+                id: 'flavio',
                 title: "FLAVIO QUINTEROS",
                 rank: "LÍDER ABSOLUTO (R20)",
-                imgLabel: "PHOTO 1",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/509t6JS6/lider.png", 
                 text: "Flavio Quinteros, Arjantin’in Buenos Aires kırsalında, Quinteros soyadının yalnızca bir aile değil, bir güç ve disiplin anlamına geldiği bir dünyada doğdu. Aile, yıllar boyunca siyasetçilerle, iş insanlarıyla ve karanlık bağlantılarla kurduğu dengeli ilişkiler sayesinde yeraltında sessiz ama sarsılmaz bir imparatorluk inşa etmişti. Flavio, bu düzenin içinde büyürken kaba şiddetten çok akıl, strateji ve itibarın gerçek güç olduğunu erken yaşta öğrendi. Flavio’nun en büyük destekçisi ve aynı zamanda sağ kolu olan kardeşi Jarvis Quinteros, ailenin operasyonel zekâsıydı. Jarvis planlar yapar, Flavio karar verirdi. Bu ikili arasındaki bağ, kan bağından öte, mutlak bir güvene dayanıyordu. Flavio’nun hayatındaki denge unsuru ise eşi Naara Quinteros’tu. Naara, yalnızca bir mafya liderinin eşi değil; diplomasi, ilişki yönetimi ve perde arkasındaki temasların mimarıydı. Ailenin “sessiz gücü” olarak bilinir, çoğu anlaşma onun zarif ama net dokunuşlarıyla sonuçlanırdı. Flavio’nun çocukluk yıllarından beri yanında olan Killy Quinteros ve Brayne Quinteros, sokaklardan malikanelere uzanan bu yolculukta asla geride kalmadı. Killy, refleksleri ve soğukkanlılığıyla ailenin güvenliğini sağlarken; Brayne, bağlantılar ve yeraltı dünyasındaki bilgi akışıyla Quinterosların gözleri ve kulakları oldu. Bu dört adam için mafya, bir çıkar ilişkisi değil; sadakat üzerine kurulu bir yaşam biçimiydi. Ancak Quinteros ailesinin Arjantin’deki yükselişi, devletin dikkatini fazlasıyla çekti. Aylar süren gizli takiplerin ardından, bir gece polisler Quinteros malikânesine kapsamlı bir baskın düzenledi. Operasyon, aileyi tamamen yok etmeyi amaçlıyordu. Fakat Flavio, bu ihtimali çok önceden öngörmüştü. Malikânede kalanlar yalnızca vitrin figürleriydi. Ailenin en güçlü, en bilgili ve en kaliteli isimleri, Flavio’nun talimatıyla çoktan ülke dışına çıkarılmıştı. Bu baskın, bir son değil; yeniden doğuşun başlangıcıydı. Flavio Quinteros, ailesini ve çekirdek kadrosunu alarak Grandoria’ya adım attı. Burada amaç sokaklara hükmetmek değil; holdingler, malikâneler, iş dünyası ve görünürde “saygın” yatırımlar aracılığıyla şehrin damarlarına sızmaktı. Quinteros Crime Family, Grandoria’da elit, soğukkanlı ve hesaplı bir mafya düzeni kurmak için sahne aldı. Flavio için güç, bağırarak değil; doğru zamanda doğru hamleyi yaparak kazanılır. O, düşmanlarını yok eden bir kasap değil; onları hataya zorlayan bir stratejisttir. Quinteros ismi artık Arjantin’de bir efsane, Grandoria’da ise yükselmekte olan bir tehdittir. Ve Flavio Quinteros’un tek bir kuralı vardır: Sadakat satın alınmaz. Kazanılır. İhanetin ise bedeli asla ertelenmez."
             },
             jarvis: {
+                id: 'jarvis',
                 title: "JARVIS QUINTEROS",
                 rank: "LÍDER ADJUNTO",
-                imgLabel: "PHOTO 2",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/9MXfr2Y2/lider2.png",
                 text: "Jarvis Quinteros, agresif tavırları ve sert bakışlarıyla bulunduğu ortamda hemen fark edilen bir isimdir. Sessiz kaldığında bile gerginlik hissedilir; konuştuğunda ise kelimeleri tehditten çok uyarı gibidir. Sabırsızdır, geri adım atmaz ve saygıyı beklemez — alır. Onu tanımayanlar için sadece öfkeli bir adamdır, tanıyanlar için ise kontrol edilmediğinde tehlikeli bir güçtür. Jarvis, korkuyu kullanmaz; varlığı yeterlidir. “Ben bağırmam, tehdit etmem… sınırı geçenin sonu zaten bellidir”"
             },
             naara: {
+                id: 'naara',
                 title: "NAARA QUINTEROS",
                 rank: "SESSİZ GÜÇ",
-                imgLabel: "PHOTO 3",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/zfFBzvWP/naara.png",
                 text: "Buenos Aires geceleri ışıl ışıldı. Naara için bu ışıklar, La Orilla adlı restoran-barın camlarından süzülen müzik ve kahkaha demekti. Mekân onun imzasını taşırdı: sade ama şık, sıcak ama kontrollü. Müşteriler Naara’yı, güler yüzlü bir işletmeci olarak tanırdı; çalışanlarına adil, misafirlerine saygılı. Ama şehir, tek yüzünü göstermezdi. Naara’nın asıl gücü, mekânın arka ofisinde, kapısı her zaman kilitli duran dar bir odada hissedilirdi. Orada duvarlarda tablolar değil, hesaplar ve sırlar asılıydı. Kimse detay bilmezdi; bilmesi de gerekmezdi. Naara, görünmeyeni görünür kılmadan yönetirdi. Kuralları vardı: şiddet yok, kaos yok, iz bırakmak yok. Onun dünyasında kontrol, her şeyden önce gelirdi."
             },
             killy: {
+                id: 'killy',
                 title: "KILLY QUINTEROS",
                 rank: "YÜKSEK KONSEY",
-                imgLabel: "PHOTO 4",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/7Ln6Hh0Y/killy.png",
                 text: "Killy Quinteros, Arjantin’in arka sokaklarında büyümüş, hayatı erken yaşta öğrenmek zorunda kalmış bir gençtir. Yokluk, belirsizlik ve kayıplarla çevrili bir çocukluk geçirmiş; ama bu zorluklar onu kırmak yerine daha da sertleştirmiştir. Çevresindeki çoğu insan kaderine boyun eğerken, Killy içten içe daha fazlasını hak ettiğini bilerek büyümüştür. Sessiz, gözlemci ve sabırlıdır. Konuşmaktan çok dinler; çünkü onun için bilgi, en büyük güçtür. En dipteyken bile onurundan vazgeçmemiş, kolay yolu seçmemiştir. Yaptığı her hata, ona bir ders; yaşadığı her kayıp, onu bir adım daha ileri taşımıştır. Zamanla Killy Quinteros, bulunduğu çevrede adı duyulan biri hâline gelir. Kimseye güvenmeyen bu genç, güvenilecek biri olmayı öğrenir. Zekâsı, kararlılığı ve soğukkanlılığı sayesinde adım adım yükselir. Onu zirveye taşıyan şey şans değil; vazgeçmeyen ruhu ve kendine verdiği sözdür. Bugün Killy Quinteros, geçmişinden kaçmayan ama onun esiri de olmayan bir karakterdir. Nereden geldiğini asla unutmadan, nereye gittiğini çok iyi bilen bir genç. Onun hikâyesi, en dipten bile zirveye çıkılabileceğinin canlı bir kanıtıdır. Killy Quinteros'a göre; Her koçtan kurban olmaz."
             },
             gustavo: {
+                id: 'gustavo',
                 title: "GUSTAVO QUINTEROS",
                 rank: "TEMSİL & İTİBAR",
-                imgLabel: "PHOTO 5",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/mrskWCcq/gustavo.png",
                 text: "Gustavo Quinteros, Quinteros soyadının yalnızca güçle değil, temsil kabiliyeti ve itibarla ayakta durduğunu bilen nadir isimlerden biridir. Arjantin’deyken ailenin doğrudan kirli işlerine bulaşmaktan çok; iş insanları, avukatlar ve aracı figürlerle kurulan temaslarda öne çıktı. Konuşmayı bilen, susması gereken yeri anlayan bir adam olarak tanındı. Arjantin’deki polis baskınından sonra Flavio Quinteros’un özel seçimiyle Grandoria’ya getirilen çekirdek kadroya dahil edildi. Bunun sebebi sadakati kadar, aile adına konuştuğunda güven vermesiydi. Gustavo, Grandoria’da Quinteros Crime Family’nin yüzü oldu; toplantılarda aileyi temsil eden, anlaşmaları yürüten ve krizleri büyümeden çözen isim haline geldi. Gustavo’nun görevi nettir: Flavio’nun sözü onun ağzından çıkar, ailenin duruşu onun tavrıyla ölçülür. O silah taşımaz; kelimeleri silah kadar etkilidir. Ve herkes bilir ki Gustavo konuşuyorsa, arkasında Quinteros iradesi vardır."
             },
             argon: {
+                id: 'argon',
                 title: "ARGON QUINTEROS",
                 rank: "LOJİSTİK & ARAÇ",
-                imgLabel: "PHOTO 6",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/TP61vgy7/argon.png",
                 text: "Argon Quinteros, Quinteros ailesinin gürültüden uzak ama en kritik parçalarından biridir. Onun dünyası toplantı masaları ya da lüks davetler değil; motor sesleri, yağ kokusu ve kapalı garaj kapılarıdır. Arjantin’deyken küçük yaşlardan itibaren araçlara ilgi duymuş, zamanla motoru dinleyerek sorunu anlayacak seviyeye gelmiştir. Dışarıdan bakıldığında Argon, kendi hâlinde, işini yapan bir mekanik ustası gibi görünür. Resmî olarak araç tamiri, modifiye ve bakım işleriyle uğraşır. Ancak bu yalnızca görünen yüzdür. Asıl uzmanlığı; plakası değişmiş araçlar, iz bırakmadan toparlanan kazalı arabalar, performansı sessizce artırılan motorlar ve “kayıt dışı” işlerdir. Arjantin’deki polis baskınından sonra Grandoria’ya gelen Argon, burada da aynı düzeni kurmuştur. Legal bir işletme görüntüsü altında çalışır; fakat Quinteros Crime Family’nin ihtiyaç duyduğu kaçış araçları, zırhlı düzenlemeler ve iz kaybettirme işlemleri onun elinden geçer. Argon konuşmaz, soru sormaz; verilen işi en temiz şekilde teslim eder. Argon Quinteros için sadakat, kan kadar nettir. O silah çekmez; ama doğru hazırlanmış bir araç, en ağır çatışmadan bile sağ çıkmanın anahtarıdır. Ve herkes bilir: Bir iş Argon’un elinden çıktıysa, geride iz kalmaz."
             },
             brayne: {
+                id: 'brayne',
                 title: "BRAYNE QUINTEROS",
                 rank: "İSTİHBARAT",
-                imgLabel: "PHOTO 7",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/SKhRbCXg/brayne.png",
                 text: "Brayne Quinteros, Quinteros ailesinin en rahat, en sosyal ve en dikkat çekici ismidir. Onu ilk tanıyanlar için Brayne; geceleri seven, kadınlarla arası iyi, girdiği ortamda kısa sürede fark edilen bir adamdır. Fakat bu görüntü, çoğu zaman bilinçli olarak oluşturulmuş bir maskedir. Brayne’in en güçlü yönü insan ilişkileridir. Kadınlarla kurduğu doğal iletişim, eğlence mekânlarında edindiği çevre ve gece hayatındaki tanınırlığı sayesinde Quinteros ailesi için birçok kapıyı fark edilmeden aralar. O, bilgiye zorla değil; sohbetle, gülümsemeyle ve güven vererek ulaşır. Kim, nerede, kiminle takılıyor… Brayne bunları sormaz, zaten öğrenir. Arjantin’deyken barlar, kulüpler ve özel davetler Brayne’in doğal alanıydı. Polis baskınından sonra Grandoria’ya geldiğinde de bu çizgiyi bozmadı. Eğlence dünyasında hızla tanınan bir figür hâline gelirken, Quinteros Crime Family için bağlantı, dedikodu ve perde arkası bilgi toplayan isim oldu. Kimsenin onu ciddi bir tehdit olarak görmemesi, Brayne’in en büyük avantajıdır. Brayne Quinteros için hayat keyiflidir; ama sadakat ciddidir. O, eğlenir, flört eder, geceleri sever — fakat Quinteros ailesi söz konusu olduğunda, maskesini indirir ve yerini bilir."
             },
             maximen: {
+                id: 'maximen',
                 title: "MAXIMEN QUINTEROS",
                 rank: "TİCARET & BAĞLANTI",
-                imgLabel: "PHOTO 8",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/FK4zX3fP/maximen.png",
                 text: "Maximen Quinteros, Quinteros ailesinin gücünün yalnızca silah ya da korkudan değil, doğru insanlar ve doğru ilişkilerden geldiğini bilen isimlerden biridir. O, bir masaya oturduğunda önce dinler, sonra konuşur; konuştuğunda ise kapılar açılır. Arjantin’deyken ailenin çevresini genişleten, ticari temasları kuran ve Quinteros ismini güvenilir bir ortak olarak tanıtan kişi Maximen’di. İş insanları, aracı figürler, tedarikçiler ve gri bölgede duran kişilerle kurduğu ilişkiler sayesinde aileye her zaman bir adım önde olma avantajı sağladı. Maximen için ticaret yalnızca para kazanmak değil; bağımlılık yaratmak, karşı tarafı Quinteros ailesine muhtaç hâle getirmekti. Kimle ne kadar yakın olunacağını, kime ne kadar mesafe koyulacağını çok iyi bilir. Arjantin’deki polis baskınından sonra Grandoria’ya gelen Maximen, burada da aynı düzeni sessizce inşa etti. Yeni bağlantılar, yeni yatırımlar ve aileye kazanç sağlayacak güvenli yollar onun kontrolünde şekillendi. Legal görünen anlaşmaların arka planını planlar, riskleri önceden hesaplar ve aileyi gereksiz çatışmalardan uzak tutar. Maximen Quinteros için güç; yüksek sesle değil, geniş bir çevreyle kurulur. O, Quinteros ailesinin kapı açan anahtarıdır — ve o anahtar doğru elde olduğu sürece, hiçbir kapı sonsuza kadar kapalı kalmaz."
             },
             david: {
+                id: 'david',
                 title: "DAVID QUINTEROS",
                 rank: "İNFAZ & DİSİPLİN",
-                imgLabel: "PHOTO 9",
+                // FOTOĞRAF LINKI BURAYA:
+                imgUrl: "https://i.postimg.cc/L8f5WNsq/david.png",
                 text: "David Quinteros, Quinteros ailesinin adının fısıltıyla anılmasına sebep olan isimdir. O konuşmaz, tehdit etmez, açıklama yapmaz. Gerektiğinde güç kullanır ve iş bittiğinde ortadan kaybolur. Ailenin kirli işlerini üstlenen biri değildir; zorunlu işleri üstlenen adamdır. Agresiftir ama kontrolsüz değildir. David için şiddet bir öfke patlaması değil, bilinçli bir araçtır. Ne zaman, ne kadar ve kime karşı kullanılacağını çok iyi bilir. Bu yüzden onu tanıyanlar, bağıran adamlardan değil; sessiz kalanlardan korkar. Çünkü David sessizse, bir karar verilmiştir. Arjantin’deyken ailenin iç disiplinini sağlayan, ihanet şüphesi olan durumları “çözen” kişi oydu. Polis baskını sonrası Grandoria’ya gelen çekirdek kadroda yer almasının sebebi de budur: David, Quinteros ailesinin son çizgisidir. O çizgi geçildiğinde geri dönüş olmaz. David Quinteros için sadakat sorgulanmaz. Emir verilmez; görev anlaşılır. O bağırmaz, tehdit etmez — ama bir kez harekete geçti mi, herkes ne kadar geç kaldığını fark eder."
             }
         };
@@ -537,6 +493,52 @@
             </div>
         `;
 
+        function renderCharacters() {
+            const gridContainer = document.getElementById('characters-grid-container');
+            const memberKeys = Object.keys(memberData);
+            
+            // Lideri ayır
+            const boss = memberData['flavio'];
+            // Diğerleri
+            const others = memberKeys.filter(key => key !== 'flavio').map(key => memberData[key]);
+
+            let html = '';
+
+            // 1. BOSS Highlight
+            if (boss) {
+                html += `
+                <div class="flex justify-center mb-10">
+                    <div onclick="openModal('${boss.id}')" class="bg-white p-6 rounded-2xl border-b-4 border-argSun w-full max-w-sm cursor-pointer text-center shadow-lg hover:shadow-xl transition-all group">
+                        <div class="w-24 h-24 mx-auto bg-slate-50 rounded-full mb-4 flex items-center justify-center border-2 border-argSun text-slate-800 shadow-sm group-hover:scale-105 transition-transform overflow-hidden">
+                             <img src="${boss.imgUrl}" class="w-full h-full smart-crop" alt="${boss.title}">
+                        </div>
+                        <h3 class="font-title font-bold text-2xl text-slate-900 mb-1">${boss.title}</h3>
+                        <div class="inline-block px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-full tracking-widest uppercase">
+                            ${boss.rank}
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            // 2. Grid for others
+            html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">`;
+            
+            others.forEach(member => {
+                html += `
+                <div onclick="openModal('${member.id}')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-argBlue hover:shadow-md transition-all text-center">
+                    <div class="w-16 h-16 mx-auto bg-slate-50 rounded-full mb-3 overflow-hidden border border-slate-100">
+                        <img src="${member.imgUrl}" class="w-full h-full smart-crop" alt="${member.title}">
+                    </div>
+                    <h4 class="font-bold text-slate-800 uppercase">${member.title.split(' ')[0]}</h4>
+                    <span class="text-[10px] font-bold text-argBlue tracking-widest uppercase block mt-1">${member.rank}</span>
+                </div>`;
+            });
+
+            html += `</div>`;
+            
+            gridContainer.innerHTML = html;
+        }
+
         function openModal(type) {
             const container = document.getElementById('modal-container');
             const body = document.getElementById('modal-body');
@@ -549,8 +551,8 @@
             } else if (memberData[type]) {
                 const data = memberData[type];
                 body.innerHTML = `
-                    <div class="relative w-full h-64 md:h-80 bg-slate-200 photo-placeholder text-4xl text-slate-400">
-                        ${data.imgLabel}
+                    <div class="relative w-full h-64 md:h-80 bg-slate-200">
+                        <img src="${data.imgUrl}" class="w-full h-full object-cover" alt="${data.title}">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6 md:p-8 text-white">
                              <h2 class="text-3xl md:text-4xl font-title font-black text-white uppercase shadow-lg drop-shadow-md">${data.title}</h2>
@@ -587,6 +589,8 @@
         }
 
         function openCharacterPage() {
+            // Karakter grid'ini render et (her açılışta güncel veriyle)
+            renderCharacters();
             const page = document.getElementById('page-characters');
             page.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
@@ -608,6 +612,9 @@
         }
 
         document.getElementById('menu-btn').addEventListener('click', toggleMenu);
+        
+        // Başlangıçta karakter grid'ini oluştur
+        renderCharacters();
     </script>
 </body>
 </html>
